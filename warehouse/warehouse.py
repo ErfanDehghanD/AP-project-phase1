@@ -7,6 +7,7 @@ def find_index_count(L:list,x):
     for i in range(len(L)):
         if L[i][0]==x:
             return i
+    
 def new_csv(L:list):
     columns=""
     for i in L:
@@ -26,7 +27,6 @@ def csv_to_dataframe(address):
         dataframe=csv.read().split('\n')
         dataframe.remove("")
         dataframe=list(map(split_by_comma,dataframe))
-        print(dataframe)
         return dataframe
 
 def text_to_dataframe(address):
@@ -93,29 +93,49 @@ class warehouse:
         else:
             print('there is not enough products in this warehouse')
     def update_by_consule(self,product_number,new_count):
-        i=find_index_count(self.warehouse, product_number)
-        self.warehouse[i][3]=new_count
+        try :
+            i=find_index_count(self.warehouse, product_number)
+            self.warehouse[i][3]=new_count
+        except TypeError:
+            print(f'entered product number {product_number} is incorrect')
     def update_manually_csv(self):
         new_csv(['product number','count'])
         input('edit and save opened window than press enter to continue ...')
         df=csv_to_dataframe('temporary_csv.csv')
-        for i in df :
-            index=find_index_count(self.warehouse,i[0])
-            self.warehouse[index][3]=i[1]
-        print(self.warehouse)
+        
+        try:
+            for i in df :
+                index=find_index_count(self.warehouse,i[0])
+                self.warehouse[index][3]=i[1]
+            self.show_warehouse_supply()   
+        except TypeError:
+            print(f'entered product number {i[0]} is incorrect')
+ 
     def update_manually_txt(self):
         new_txt()
         input('edit and save opened window than press enter to continue ...')
         df=text_to_dataframe('temporary_text.txt')
-        for i in df :
-            index=find_index_count(self.warehouse,i[0])
-            self.warehouse[index][3]=i[1]
-        print(self.warehouse)        
-
-        
+        try:
+            for i in df :
+                index=find_index_count(self.warehouse,i[0])
+                self.warehouse[index][3]=i[1]
+            self.show_warehouse_supply()     
+        except TypeError:
+            print(f'entered product number {i[0]} is incorrect')
     
     def show_warehouse_supply(self):
         column_maker(self.warehouse)    
-        
+    
+    def save_warehouse(self):
+        with open('warehouse.csv','w') as csv:
+            csv.write('')
+        with open('warehouse.csv','a') as csv:
+            for i in self.warehouse:
+                for j in i:
+                    csv.write(f'{j},')
+                csv.write('\n')
 x=warehouse()
 x.show_warehouse_supply()
+x.update_by_consule('6','8')
+x.show_warehouse_supply()
+x.save_warehouse()
