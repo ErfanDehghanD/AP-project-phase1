@@ -76,7 +76,6 @@ def column_maker(L):
             result += (space_num+10) * " "
         print(result)       
         
-# space_calculator(len_word(word))
 
 
 class warehouse:
@@ -92,17 +91,18 @@ class warehouse:
             self.warehouse[I][3]=str(int(self.warehouse[I][3])-int(count))
         else:
             print('there is not enough products in this warehouse')
+    
     def update_by_consule(self,product_number,new_count):
         try :
             i=find_index_count(self.warehouse, product_number)
             self.warehouse[i][3]=new_count
         except TypeError:
             print(f'entered product number {product_number} is incorrect')
+    
     def update_manually_csv(self):
         new_csv(['product number','count'])
-        input('edit and save opened window than press enter to continue ...')
+        input('edit and save opened window than close it and press enter to continue ...')
         df=csv_to_dataframe('temporary_csv.csv')
-        
         try:
             for i in df :
                 index=find_index_count(self.warehouse,i[0])
@@ -110,10 +110,11 @@ class warehouse:
             self.show_warehouse_supply()   
         except TypeError:
             print(f'entered product number {i[0]} is incorrect')
- 
+        os.system('del temporary_csv.csv')
+        
     def update_manually_txt(self):
         new_txt()
-        input('edit and save opened window than press enter to continue ...')
+        input('edit and save opened window than close it and press enter to continue ...')
         df=text_to_dataframe('temporary_text.txt')
         try:
             for i in df :
@@ -122,6 +123,7 @@ class warehouse:
             self.show_warehouse_supply()     
         except TypeError:
             print(f'entered product number {i[0]} is incorrect')
+        os.system('del temporary_text.txt')
     
     def show_warehouse_supply(self):
         column_maker(self.warehouse)    
@@ -134,8 +136,11 @@ class warehouse:
                 for j in i:
                     csv.write(f'{j},')
                 csv.write('\n')
+        print('warehose successfully saved')
+
 x=warehouse()
 x.show_warehouse_supply()
 x.update_by_consule('6','8')
 x.show_warehouse_supply()
 x.save_warehouse()
+x.update_manually_csv()
