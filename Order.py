@@ -1,6 +1,7 @@
 ##########################################################
 # import libraries
 from random import randint
+import os
 
 
 class Order:
@@ -30,8 +31,7 @@ class Order:
         return random_order_number
 
     # this function checks card number validation by number of digits and input type
-    def payment_validation(self):
-        card_number = input('input your card number for successful payment... ')
+    def payment_validation(self, card_number):
         self.cardNumber = card_number
         if len(self.cardNumber) == 16 and type(eval(self.cardNumber)) == int:
             return True
@@ -40,34 +40,49 @@ class Order:
 
     # this function makes a text expression for user to show the payment status
     def payment_validation_text(self):
-        if self.payment_validation():
+        if self.payment_validation(self.cardNumber):
             return 'successful payment'
         else:
             return 'unsuccessful payment'
 
     # this function gets information needed for payment process
-    def payment_information(self):
-        self.address = input('input your address as necessary information... ')
-        self.phone_number = input('input your phone number as necessary information... ')
-        self.first_name = input('input your first name as necessary information... ')
-        self.last_name = input('input your last name as necessary information... ')
-        self.delivery_time = input('input your proper delivery time as necessary information... ')
-        return self.address, self.phone_number, self.first_name, self.last_name, self.delivery_time
+    def payment_information_set(self, address, phone_number, first_name, last_name, delivery_time):
+        self.address = address
+        self.phone_number = phone_number
+        self.first_name = first_name
+        self.last_name = last_name
+        self.delivery_time = delivery_time
 
-    # this function makes a file included (card_number, payment_validation(), first_name, last_name)
+    # this function makes a file included (card_number, payment_validation_text(), first_name, last_name)
     def payment_output(self):
-        output = open('C:\Users\1\Desktop\Sharif\4\برنامه‌نویسی پیشرفته\Project1\payment_output', 'x')
+        output = open('payment_output.txt', 'x')
         result = f'{self.cardNumber}, {self.payment_validation_text()}, {self.first_name}, {self.last_name}'
         output.write(result)
+        output.close()
+        os.system("start payment_output.txt")
+        input("after closing the opened window, press enter to continue process...")
+        os.system("del payment_output.txt")
 
     # this function makes a file included:
-    # (product_name, product_price, order_number(), address, first_name, last_name, delivery_time, delivery_type)
+    # (product_name, product_count, product_price, orderNumber, address,
+    # first_name, last_name, delivery_time, delivery_type)
     # if (payment_validation() == True)
-    def factor_output(self):
-        if self.payment_validation() == True:
-            # add product_name, product_price at begin (from somewhere)
-            # add delivery_type at the end (from logistic class)
-            return self.order_number(), self.address, self.first_name, self.last_name, self.delivery_time
-        else:
-            pass
+    def make_factor_constants(self, delivery_time, delivery_type):
+        output = open('factor_output.txt', 'w')
+        result1 = f'{self.orderNumber}, {self.address}, {self.first_name}, {self.last_name}'
+        result2 = f'{delivery_time}, {delivery_type}'
+        separator = "\n_______________________________________________________________"
+        result = result1 + "|" + result2 + separator
+        output.write(result)
+        output.close()
 
+    def make_factor_variables(self, product_name, product_count, product_price):
+        output = open('factor_output.txt', 'a')
+        result = f'{product_name}, {product_count}, {product_price}'
+        output.write(result)
+        output.close()
+
+    def show_factor_output(self):
+        os.system("start factor_output.txt")
+        input("after closing the opened window, press enter to continue process...")
+        os.system("del payment_output.txt")
