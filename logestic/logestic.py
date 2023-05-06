@@ -21,14 +21,14 @@ class logestic:
             return "post"
        
     def save_counters(self):
-        output = open('counters.txt', 'x')
+        output = open('logestic\counters.txt', 'w')
         result = f'[{self.ncounter}, {self.ecounter}]'
         output.write(result)
         output.close()
 
     def init_counters(self):
-        file = open("counters.txt", 'r')
-        if os.exist("counter.txt"):
+        file = open("logestic\counters.txt", 'r')
+        if os.path.isfile("logestic\counter.txt"):
             self.ncounter = file [0]
             self.ecounter = file [1]
         else:
