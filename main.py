@@ -24,8 +24,11 @@ while True:
         ins2 = logestic()
         order_number = ins1.order_number()
 
-        delivery_time = 0 #we should edit it
+        ins2.available_time()
+        delivery_time = input("enter the time from options") #how to save ncounter to check ?? 
+        ins2.delivery_time(delivery_time)
         delivery_type = ins2.county_check()  # input of address ???
+
 
         ins1.make_factor_constants(delivery_time, delivery_type)
         while True:
