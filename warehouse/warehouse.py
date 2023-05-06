@@ -79,19 +79,24 @@ def column_maker(L):
 
 
 class warehouse:
-    def __init__(self):
-        self.warehouse=csv_to_dataframe('warehouse.csv')
+    def load_warehouse(self):
+        self.warehouse=csv_to_dataframe('warehouse\warehouse.csv')
         
     def add_product(self,product_number,product,price,count):
-        self.warehouse.append([product_number,product,price,count])
-        
+        if find_index_count(self.warehouse, product_number)==None:
+            self.warehouse.append([product_number,product,price,count])
+        else:
+            print(f'you have this {product} in your warehouse by this number {product_number}')
+            
     def update_order(self,product_number,count):
         I=find_index_count(self.warehouse, product_number)
         if int(self.warehouse[I][3])-int(count)>0:
             self.warehouse[I][3]=str(int(self.warehouse[I][3])-int(count))
+            return True
         else:
             print('there is not enough products in this warehouse')
-    
+            return False
+        
     def update_by_consule(self,product_number,new_count):
         try :
             i=find_index_count(self.warehouse, product_number)
@@ -126,21 +131,19 @@ class warehouse:
         os.system('del temporary_text.txt')
     
     def show_warehouse_supply(self):
-        column_maker(self.warehouse)    
+        column_maker(self.warehouse)   
     
+    def get_price(self,pruduct_number):
+        index=find_index_count(self.warehouse, pruduct_number)
+        return self.warehouse[index][2]
+        
     def save_warehouse(self):
-        with open('warehouse.csv','w') as csv:
+        with open('warehouse\warehouse.csv','w') as csv:
             csv.write('')
-        with open('warehouse.csv','a') as csv:
+        with open('warehouse\warehouse.csv','a') as csv:
             for i in self.warehouse:
                 for j in i:
                     csv.write(f'{j},')
                 csv.write('\n')
         print('warehose successfully saved')
 
-x=warehouse()
-x.show_warehouse_supply()
-x.update_by_consule('6','8')
-x.show_warehouse_supply()
-x.save_warehouse()
-x.update_manually_csv()
