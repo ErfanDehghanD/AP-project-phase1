@@ -8,20 +8,11 @@ class Order:
 
     def __init__(self):
         self.orderNumber = 0
-        self.cardNumber = '0'
         self.address = 'address'
         self.phone_number = 'phone number'
         self.first_name = 'first name'
         self.last_name = 'last name'
         self.delivery_time = '0'
-
-
-    def get_order(self):
-        order_list = []
-        entrance = input('do you want to make an order? ')
-        order = eval(input('enter your product order like [product_name, product_number]'))
-        resume = input()
-        pass
 
     # this function makes order number with n digits
     def order_number(self):
