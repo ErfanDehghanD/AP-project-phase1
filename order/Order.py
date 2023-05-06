@@ -61,9 +61,9 @@ class Order:
     def make_factor_constants(self, delivery_time, delivery_type):
         output = open('factor_output.txt', 'w')
         result1 = f'{self.orderNumber}, {self.address}, {self.first_name}, {self.last_name}'
-        result2 = f'{delivery_time}, {delivery_type}'
+        result2 = f'delivery time is {delivery_time}, delivery type is {delivery_type}'
         separator = "\n_______________________________________________________________"
-        result = result1 + "|" + result2 + separator
+        result = result1 + "|" + result2 + separator + "\n"
         output.write(result)
         output.close()
 
