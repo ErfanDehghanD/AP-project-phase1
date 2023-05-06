@@ -46,7 +46,7 @@ class Order:
 
     # this function makes a file included (card_number, payment_validation_text(), first_name, last_name)
     def payment_output(self):
-        output = open('payment_output.txt', 'x')
+        output = open('payment_output.txt', 'W')
         result = f'{self.cardNumber}, {self.payment_validation_text()}, {self.first_name}, {self.last_name}'
         output.write(result)
         output.close()
@@ -71,6 +71,7 @@ class Order:
         output = open('factor_output.txt', 'a')
         result = f'{product_name}, {product_count}, {product_price}'
         output.write(result)
+        output.write("\n")
         output.close()
 
     def show_factor_output(self):
