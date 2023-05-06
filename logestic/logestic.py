@@ -4,7 +4,6 @@ import os
 # 2=> esphahan = 1 / ghahjavarestan = 2
 # 3=> tabriz = 1 / sardorud = 2
 
-# where these datas come from ??????????????????????????
 class logestic:
     def __init__(self, county, city, address, postal_code):
         self.county = county
@@ -34,9 +33,19 @@ class logestic:
             self.ecounter = file [1]
         else:
             pass
-        
+    def delivery_price(self):
+        if self.county == 1:
+            return 5
+        elif self.county == 2 and self.city == 1:
+            return 10
+        elif self.county == 2 and self.city == 2:
+            return 11
+        elif self.county == 3 and self.city == 1:
+            return 15
+        elif self.county == 3 and self.city == 2:
+            return 17
+    
     # morining, noon and evening
-
     def available_time(self):
         if self.ncounter <= 3 and self.ecounter <= 3:
             print("when do you want your order to be delivered ?  1.morning  2.noon 3.evening   :    ")
