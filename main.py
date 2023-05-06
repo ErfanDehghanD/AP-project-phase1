@@ -12,6 +12,7 @@ insaccountancy=Accountancy()
 insaccountancy.init_file()
 
 while True:
+    inswarehouse.load_warehouse()
     print("How do you want to enter the shop?")
     print("1.as a customer 2.as a manager  Enter the number")
     a = int(input())
@@ -61,6 +62,7 @@ while True:
         ins1.payment_output()
         
         if ins1.payment_validation():
+            inswarehouse.save_warehouse()
             ins1.show_factor_output()
             insaccountancy.make_file(product_count, order_number, product_price, delivery_price)
               
@@ -78,6 +80,7 @@ while True:
             print('what do you want to do with your shop ?')
             print('1. I want to look into my warehouse')
             print('2. I want to look into my accountancy')
+            print('3. Back')
             inswarehouse.load_warehouse() 
             choice_1_manager = input('enter your command (1 or 2) here : ')
             
@@ -133,7 +136,8 @@ while True:
                     
             if choice_1_manager=='2':
                 insaccountancy.show_file()
-                
+            elif choice_1_manager=='3':
+                break
             
             #kaftar kakol be sar hay hay
             #in khabar az man bebar hay hay
