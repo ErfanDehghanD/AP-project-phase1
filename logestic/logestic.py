@@ -1,3 +1,4 @@
+import os
 # determining cities of the counties
 # 1=> tehran = 1   (tehran county just have a city)
 # 2=> esphahan = 1 / ghahjavarestan = 2
@@ -19,6 +20,20 @@ class logestic:
             return "courier"
         else :
             return "post"
+       
+    def save_counters(self):
+        output = open('counters.txt', 'x')
+        result = f'[{self.ncounter}, {self.ecounter}]'
+        output.write(result)
+        output.close()
+
+    def init_counters(self):
+        file = open("counters.txt", 'r')
+        if os.exist("counter.txt"):
+            self.ncounter = file [0]
+            self.ecounter = file [1]
+        else:
+            pass
         
     # morining, noon and evening
 
