@@ -19,16 +19,10 @@ while True:
         last_name = input("your lastname please")
         phone_number = input("your phone number please")
         address = input("your address please")
+        
 
         ins1 = Order()
-        ins2 = logestic()
         order_number = ins1.order_number()
-
-        ins2.available_time()
-        delivery_time = input("enter the time from options") #how to save ncounter to check ?? 
-        ins2.delivery_time(delivery_time)
-        delivery_type = ins2.county_check()  # input of address ???
-
 
         ins1.make_factor_constants(delivery_time, delivery_type)
         while True:
@@ -41,6 +35,22 @@ while True:
 
             if check_continue == "no":
                 break
+        
+        
+
+        county = input("enter your county")
+        city = input ("enter your city")
+        postal_code = input("enter your postal code")
+        ins2 = logestic(county, city, address, postal_code)
+
+        ins2.init_counters()
+        ins2.available_time()
+        delivery_time = input("enter the time from options") 
+        ins2.delivery_time(delivery_time)
+        ins2.save_counters()
+
+
+        delivery_type = ins2.county_check()
         
         ins1.payment_information_set(address, phone_number, first_name, last_name, delivery_time)
         card_number = input("enter your card number  :  ")
@@ -68,4 +78,3 @@ while True:
         elif b == 2:
             print("       connecting to accounting      ???")
         
-
