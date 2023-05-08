@@ -26,8 +26,8 @@ while True:
         ins1 = Order()
         order_number = ins1.order_number()
         
-        county = input("enter your county   : 1.tehran, 2.esfahan, 3.tabriz  ")
-        city = input ("enter your city   : 1 or 2  ")
+        county = int(input("enter your county   : 1.tehran, 2.esfahan, 3.tabriz  "))
+        city = int(input ("enter your city   : 1 or 2  "))
         postal_code = input("enter your postal code   :   ")
         
         ins2 = logestic(county, city, address, postal_code)
@@ -43,13 +43,16 @@ while True:
         while True:
             product_name = input("Enter product ID you want to order    :    ")
             product_count = input("How many of this product do you want to order?    :    ")
-            inswarehouse.update_order(product_name, product_count)
-            check_continue = input("do you want to add new products to your order?  yes / no   :   ")
-            product_price = inswarehouse.get_price(product_name)
-            ins1.make_factor_variables(product_name , product_count, product_price)
-
-            if check_continue == "no":
-                break
+            if inswarehouse.update_order(product_name, product_count):
+                check_continue = input("do you want to add new products to your order?  yes / no   :   ")
+                product_price = inswarehouse.get_price(product_name)
+                ins1.make_factor_variables(product_name , product_count, product_price)
+                if check_continue == "no":
+                    break
+            else:
+                pass
+            
+            
 
         card_number = input("enter your card number  :  ")
         ins1.payment_validation(card_number)
@@ -60,13 +63,16 @@ while True:
             inswarehouse.save_warehouse()
             ins1.show_factor_output()
             delivery_price = ins2.delivery_price()
+            print(delivery_price)
             insaccountancy.make_file(product_count, order_number, product_price, delivery_price)
               
 
     elif a == 2 :
         try:
             from playsound import playsound
-            playsound('audio.mp3')
+            x=input('do you want to listen to our fancy music ?(yes,no) ')
+            if x== 'yes':
+                playsound('fancy audio.mp3')
         except Exception:
             pass
         

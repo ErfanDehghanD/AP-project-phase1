@@ -69,7 +69,7 @@ class Order:
 
     def make_factor_variables(self, product_name, product_count, product_price):
         output = open('factor_output.txt', 'a')
-        result = f'{product_name}, {product_count}, {product_price}'
+        result = f'product number : {product_name}, amount : {product_count}, price : {product_price}'
         output.write(result)
         output.write("\n")
         output.close()
@@ -77,4 +77,4 @@ class Order:
     def show_factor_output(self):
         os.system("start factor_output.txt")
         input("after closing the opened window, press enter to continue process...")
-        os.system("del payment_output.txt")
+        os.system("del factor_output.txt")

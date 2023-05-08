@@ -90,7 +90,7 @@ class warehouse:
             
     def update_order(self,product_number,count):
         I=find_index_count(self.warehouse, product_number)
-        if int(self.warehouse[I][3])-int(count)>0:
+        if int(self.warehouse[I][3])-int(count)>=0:
             self.warehouse[I][3]=str(int(self.warehouse[I][3])-int(count))
             return True
         else:
